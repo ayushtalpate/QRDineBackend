@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 const menuRoutes = require("./routes/menuRoutes");
-const qrcodeRoutes = require("./routes/qrcodeRoutes");
+const qrcodeRoutes = require("./routes/qrCodeRoutes");
 const orderRoutes = require("./routes/orderRoutes")
 
 // Load environment variables
