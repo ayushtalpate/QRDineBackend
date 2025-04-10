@@ -5,8 +5,10 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 const menuRoutes = require("./routes/menuRoutes");
-const qrcodeRoutes = require("./routes/qrcodeRoutes");
+const qrcodeRoutes = require("./routes/qrCodeRoutes");
 const orderRoutes = require("./routes/orderRoutes")
+const razorpayRoutes = require("./routes/razorpay");
+
 
 // Load environment variables
 dotenv.config();
@@ -39,6 +41,7 @@ app.use("/api/menu", menuRoutes);
 app.use("/api/qrcode", qrcodeRoutes);
 app.use("/uploads", express.static("uploads"));
 app.use("/api/orders", orderRoutes);
+app.use("/api/razorpay", razorpayRoutes);
 
 
 
