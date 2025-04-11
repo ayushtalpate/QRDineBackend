@@ -7,6 +7,9 @@ const bodyParser = require("body-parser");
 const menuRoutes = require("./routes/menuRoutes");
 const qrcodeRoutes = require("./routes/qrCodeRoutes");
 const orderRoutes = require("./routes/orderRoutes")
+const analyticsRoutes = require('./routes/analytics');
+const dailyReportRoutes = require("./routes/dailyReportRoutes");
+
 const razorpayRoutes = require("./routes/razorpay");
 
 
@@ -39,9 +42,13 @@ connectDB();
 // ✅ Routes
 app.use("/api/menu", menuRoutes);
 app.use("/api/qrcode", qrcodeRoutes);
+app.use('/api/analytics', analyticsRoutes);
+
 app.use("/uploads", express.static("uploads"));
 app.use("/api/orders", orderRoutes);
 app.use("/api/razorpay", razorpayRoutes);
+app.use("/api/daily-reports", dailyReportRoutes);
+
 
 
 

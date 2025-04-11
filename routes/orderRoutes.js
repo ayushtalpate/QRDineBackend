@@ -1,6 +1,31 @@
 const express = require("express");
 const router = express.Router();
 const Order = require("../models/Order");
+const DailyReport = require("../models/DailyReport");
+
+
+
+const updateDailyReport = async (order) => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // normalize to start of day
+
+  const totalAmount = order.items.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+
+  await DailyReport.findOneAndUpdate(
+    { date: today },
+    {
+      $inc: {
+        totalOrders: 1,
+        totalRevenue: totalAmount,
+      },
+    },
+    { upsert: true, new: true }
+  );
+};
+
 
 router.post("/", async (req, res) => {
     try {
@@ -28,7 +53,9 @@ router.post("/", async (req, res) => {
         status: "Pending", // Set initial status
       });
   
-      await order.save();
+      const savedOrder = await order.save();
+
+      await updateDailyReport(savedOrder); 
       res.status(201).json({ message: " Order placed successfully", order });
   
     } catch (error) {
